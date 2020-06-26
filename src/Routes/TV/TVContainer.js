@@ -39,8 +39,8 @@ export default class extends React.Component {
         topRated={topRated}
         popular={popular}
         airingToday={airingToday}
-        error={error}
         loading={loading}
+        error={error}
       />
     );
   }

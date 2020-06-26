@@ -45,8 +45,8 @@ export default class extends React.Component {
         nowPlaying={nowPlaying}
         upcoming={upcoming}
         popular={popular}
-        error={error}
         loading={loading}
+        error={error}
       />
     );
   }
