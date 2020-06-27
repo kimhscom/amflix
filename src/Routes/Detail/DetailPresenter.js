@@ -67,6 +67,15 @@ const Overview = styled.p`
   opacity: 0.7;
 `;
 
+const Iframe = styled.iframe`
+  display: block;
+  width: 50%;
+  margin-top: 20px;
+  &:not(:last-child) {
+    margin-bottom: 10px;
+  }
+`;
+
 const DetailPresenter = ({ result, loading, error }) =>
   loading ? (
     <>
@@ -116,6 +125,18 @@ const DetailPresenter = ({ result, loading, error }) =>
             </Item>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
+          {result.videos.results &&
+            result.videos.results
+              .slice(0, 2)
+              .map((video, index) => (
+                <Iframe
+                  key={index}
+                  width="560"
+                  height="315"
+                  src={`https://www.youtube.com/embed/${video.key}`}
+                  frameborder="0"
+                ></Iframe>
+              ))}
         </Data>
       </Content>
     </Container>
