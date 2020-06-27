@@ -1,6 +1,7 @@
 # Amflix
 
-Learning React and ES6 by building a Movie Discovery App.
+(👉[See the Amflix website](https://amflix.netlify.app/)👈)
+React and ES6 by building a Movie and TV Discovery App.
 
 ## Screens
 
