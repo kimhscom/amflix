@@ -46,8 +46,27 @@ const Data = styled.div`
   margin-left: 10px;
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const Title = styled.h3`
   font-size: 32px;
+`;
+
+const Imdb = styled.a`
+  width: 60px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f5c518;
+  color: #000000;
+  font-size: 18px;
+  font-weight: 700;
+  border-radius: 5px;
+  margin-left: 10px;
 `;
 
 const ItemContainer = styled.div`
@@ -103,7 +122,12 @@ const DetailPresenter = ({ result, loading, error }) =>
           }
         />
         <Data>
-          <Title>{result.title ? result.title : result.name}</Title>
+          <TitleContainer>
+            <Title>{result.title ? result.title : result.name}</Title>
+            <Imdb href={"#"} target="_blank">
+              IMDB
+            </Imdb>
+          </TitleContainer>
           <ItemContainer>
             <Item>
               {result.release_date
