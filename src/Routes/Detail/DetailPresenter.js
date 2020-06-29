@@ -95,7 +95,7 @@ const Iframe = styled.iframe`
   }
 `;
 
-const DetailPresenter = ({ result, loading, error }) =>
+const DetailPresenter = ({ result, external, loading, error }) =>
   loading ? (
     <>
       <Helmet>
@@ -124,7 +124,10 @@ const DetailPresenter = ({ result, loading, error }) =>
         <Data>
           <TitleContainer>
             <Title>{result.title ? result.title : result.name}</Title>
-            <Imdb href={"#"} target="_blank">
+            <Imdb
+              href={`https://www.imdb.com/title/${external.imdb_id}`}
+              target="_blank"
+            >
               IMDB
             </Imdb>
           </TitleContainer>
@@ -168,6 +171,7 @@ const DetailPresenter = ({ result, loading, error }) =>
 
 DetailPresenter.propTypes = {
   result: PropTypes.object,
+  external: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
