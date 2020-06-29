@@ -35,7 +35,7 @@ const Content = styled.div`
 `;
 
 const Cover = styled.div`
-  width: 30%;
+  width: 35%;
   height: 100%;
   background-image: url(${(props) => props.bgImage});
   background-position: center center;
@@ -44,7 +44,7 @@ const Cover = styled.div`
 `;
 
 const Data = styled.div`
-  width: 70%;
+  width: 65%;
   margin-left: 10px;
   overflow: scroll;
 `;
@@ -76,30 +76,37 @@ const ItemContainer = styled.div`
   margin: 20px 0;
 `;
 
-const Item = styled.span``;
+const Item = styled.span`
+  font-size: 18px;
+`;
 
 const Divider = styled.span`
   margin: 0 10px;
 `;
 
 const Overview = styled.p`
-  width: 50%;
-  font-size: 12px;
+  width: 100%;
+  font-size: 18px;
   line-height: 1.5;
   opacity: 0.7;
 `;
 
 const TabContainer = styled.div`
-  width: 50%;
+  width: 100%;
   margin-top: 20px;
 `;
 
+const VideoContainer = styled.div`
+  display: flex;
+  overflow: auto;
+  margin-top: 10px;
+`;
+
 const Iframe = styled.iframe`
-  display: block;
-  width: 100%;
-  margin-top: 20px;
+  width: 300px;
+  height: 169px;
   &:not(:last-child) {
-    margin-bottom: 10px;
+    margin-right: 10px;
   }
 `;
 
@@ -186,16 +193,18 @@ const DetailPresenter = ({ result, external, loading, error }) =>
                 <Tab>Countries</Tab>
               </TabList>
               <TabPanel>
-                {result.videos.results &&
-                  result.videos.results.map((video, index) => (
-                    <Iframe
-                      key={index}
-                      width="560"
-                      height="315"
-                      src={`https://www.youtube.com/embed/${video.key}`}
-                      frameborder="0"
-                    ></Iframe>
-                  ))}
+                <VideoContainer>
+                  {result.videos.results &&
+                    result.videos.results.map((video, index) => (
+                      <Iframe
+                        key={index}
+                        width="560"
+                        height="315"
+                        src={`https://www.youtube.com/embed/${video.key}`}
+                        frameborder="0"
+                      ></Iframe>
+                    ))}
+                </VideoContainer>
               </TabPanel>
               <TabPanel>
                 <CompanyList>
