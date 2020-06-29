@@ -4,6 +4,8 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import "react-tabs/style/react-tabs.css";
 
 const Container = styled.div`
   width: 100%;
@@ -44,6 +46,7 @@ const Cover = styled.div`
 const Data = styled.div`
   width: 70%;
   margin-left: 10px;
+  overflow: scroll;
 `;
 
 const TitleContainer = styled.div`
@@ -86,13 +89,36 @@ const Overview = styled.p`
   opacity: 0.7;
 `;
 
+const TabContainer = styled.div`
+  width: 50%;
+  margin-top: 20px;
+`;
+
 const Iframe = styled.iframe`
   display: block;
-  width: 50%;
+  width: 100%;
   margin-top: 20px;
   &:not(:last-child) {
     margin-bottom: 10px;
   }
+`;
+
+const CompanyList = styled.ul`
+  line-height: 1.5;
+  padding: 0 10px;
+`;
+
+const CompanyName = styled.li`
+  font-size: 22px;
+`;
+
+const CountryList = styled.ul`
+  line-height: 1.5;
+  padding: 0 10px;
+`;
+
+const CountryName = styled.li`
+  font-size: 22px;
 `;
 
 const DetailPresenter = ({ result, external, loading, error }) =>
@@ -152,18 +178,45 @@ const DetailPresenter = ({ result, external, loading, error }) =>
             </Item>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          {result.videos.results &&
-            result.videos.results
-              .slice(0, 2)
-              .map((video, index) => (
-                <Iframe
-                  key={index}
-                  width="560"
-                  height="315"
-                  src={`https://www.youtube.com/embed/${video.key}`}
-                  frameborder="0"
-                ></Iframe>
-              ))}
+          <TabContainer>
+            <Tabs>
+              <TabList>
+                <Tab>Vidoes</Tab>
+                <Tab>Companies</Tab>
+                <Tab>Countries</Tab>
+              </TabList>
+              <TabPanel>
+                {result.videos.results &&
+                  result.videos.results.map((video, index) => (
+                    <Iframe
+                      key={index}
+                      width="560"
+                      height="315"
+                      src={`https://www.youtube.com/embed/${video.key}`}
+                      frameborder="0"
+                    ></Iframe>
+                  ))}
+              </TabPanel>
+              <TabPanel>
+                <CompanyList>
+                  {result.production_companies.map((company) => (
+                    <CompanyName>• {company.name}</CompanyName>
+                  ))}
+                </CompanyList>
+              </TabPanel>
+              <TabPanel>
+                <CountryList>
+                  {result.production_countries
+                    ? result.production_countries.map((country) => (
+                        <CountryName>• {country.name}</CountryName>
+                      ))
+                    : result.origin_country.map((country) => (
+                        <CountryName>• {country}</CountryName>
+                      ))}
+                </CountryList>
+              </TabPanel>
+            </Tabs>
+          </TabContainer>
         </Data>
       </Content>
     </Container>
