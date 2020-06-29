@@ -19,6 +19,7 @@ export const moviesApi = {
       },
     }),
   external: (id) => api.get(`movie/${id}/external_ids`),
+  collection: (id) => api.get(`collection/${id}`),
   search: (term) =>
     api.get("search/movie", {
       params: {

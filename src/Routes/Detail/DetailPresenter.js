@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
@@ -56,6 +57,10 @@ const TitleContainer = styled.div`
 
 const Title = styled.h3`
   font-size: 32px;
+`;
+
+const SubTitle = styled.h4`
+  font-size: 22px;
 `;
 
 const Imdb = styled.a`
@@ -128,6 +133,26 @@ const CountryName = styled.li`
   font-size: 22px;
 `;
 
+const CollectionContainer = styled.div`
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+`;
+
+const CollectionCover = styled.img`
+  width: 100%;
+  background-size: cover;
+  border-radius: 4px;
+  background-position: center center;
+  margin-top: 10px;
+`;
+
+const CollectionName = styled.span`
+  font-size: 12px;
+  margin-top: 10px;
+`;
+
 const DetailPresenter = ({ result, external, loading, error }) =>
   loading ? (
     <>
@@ -171,9 +196,7 @@ const DetailPresenter = ({ result, external, loading, error }) =>
                 : result.first_air_date.substring(0, 4)}
             </Item>
             <Divider>•</Divider>
-            <Item>
-              {result.runtime ? result.runtime : result.episode_run_time[0]} min
-            </Item>
+            <Item>{result.runtime ? result.runtime : 0} min</Item>
             <Divider>•</Divider>
             <Item>
               {result.genres &&
@@ -208,24 +231,37 @@ const DetailPresenter = ({ result, external, loading, error }) =>
               </TabPanel>
               <TabPanel>
                 <CompanyList>
-                  {result.production_companies.map((company) => (
-                    <CompanyName>• {company.name}</CompanyName>
+                  {result.production_companies.map((company, index) => (
+                    <CompanyName key={index}>• {company.name}</CompanyName>
                   ))}
                 </CompanyList>
               </TabPanel>
               <TabPanel>
                 <CountryList>
                   {result.production_countries
-                    ? result.production_countries.map((country) => (
-                        <CountryName>• {country.name}</CountryName>
+                    ? result.production_countries.map((country, index) => (
+                        <CountryName key={index}>• {country.name}</CountryName>
                       ))
-                    : result.origin_country.map((country) => (
-                        <CountryName>• {country}</CountryName>
+                    : result.origin_country.map((country, index) => (
+                        <CountryName key={index}>• {country}</CountryName>
                       ))}
                 </CountryList>
               </TabPanel>
             </Tabs>
           </TabContainer>
+          {result.belongs_to_collection ? (
+            <CollectionContainer>
+              <SubTitle>Collection</SubTitle>
+              <Link to={`/collection/${result.belongs_to_collection.id}`}>
+                <CollectionCover
+                  src={`https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`}
+                />
+                <CollectionName>
+                  {result.belongs_to_collection.name}
+                </CollectionName>
+              </Link>
+            </CollectionContainer>
+          ) : null}
         </Data>
       </Content>
     </Container>
