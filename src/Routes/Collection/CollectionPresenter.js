@@ -35,7 +35,7 @@ const Content = styled.div`
 `;
 
 const Cover = styled.div`
-  width: 35%;
+  width: 30%;
   height: 100%;
   background-image: url(${(props) => props.bgImage});
   background-position: center center;
@@ -44,7 +44,7 @@ const Cover = styled.div`
 `;
 
 const Data = styled.div`
-  width: 65%;
+  width: 70%;
   margin-left: 10px;
   overflow: scroll;
 `;

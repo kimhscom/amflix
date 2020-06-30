@@ -36,7 +36,7 @@ const Content = styled.div`
 `;
 
 const Cover = styled.div`
-  width: 35%;
+  width: 30%;
   height: 100%;
   background-image: url(${(props) => props.bgImage});
   background-position: center center;
@@ -45,7 +45,7 @@ const Cover = styled.div`
 `;
 
 const Data = styled.div`
-  width: 65%;
+  width: 70%;
   margin-left: 10px;
   overflow: scroll;
 `;
@@ -57,10 +57,6 @@ const TitleContainer = styled.div`
 
 const Title = styled.h3`
   font-size: 32px;
-`;
-
-const SubTitle = styled.h4`
-  font-size: 22px;
 `;
 
 const Imdb = styled.a`
@@ -148,7 +144,47 @@ const CollectionCover = styled.img`
   margin-top: 10px;
 `;
 
+const CollectionTitle = styled.h4`
+  font-size: 22px;
+`;
+
 const CollectionName = styled.span`
+  font-size: 12px;
+  margin-top: 10px;
+`;
+
+const SeasonsContainer = styled.div`
+  margin-top: 20px;
+`;
+
+const SeasonsTitle = styled.h4`
+  font-size: 22px;
+`;
+
+const SeasonsColumn = styled.div`
+  width: 100%;
+  display: flex;
+  overflow: auto;
+`;
+
+const SeasonsItem = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+
+const SeasonsCover = styled.img`
+  width: 200px;
+  height: 300px;
+  background-size: cover;
+  border-radius: 4px;
+  background-position: center center;
+  &:not(:last-child) {
+    margin-right: 10px;
+  }
+  margin-top: 10px;
+`;
+
+const SeasonsnName = styled.span`
   font-size: 12px;
   margin-top: 10px;
 `;
@@ -196,7 +232,9 @@ const DetailPresenter = ({ result, external, loading, error }) =>
                 : result.first_air_date.substring(0, 4)}
             </Item>
             <Divider>•</Divider>
-            <Item>{result.runtime ? result.runtime : 0} min</Item>
+            <Item>
+              {result.runtime ? result.runtime : result.episode_run_time[0]} min
+            </Item>
             <Divider>•</Divider>
             <Item>
               {result.genres &&
@@ -211,7 +249,7 @@ const DetailPresenter = ({ result, external, loading, error }) =>
           <TabContainer>
             <Tabs>
               <TabList>
-                <Tab>Vidoes</Tab>
+                <Tab>Videos</Tab>
                 <Tab>Companies</Tab>
                 <Tab>Countries</Tab>
               </TabList>
@@ -251,7 +289,7 @@ const DetailPresenter = ({ result, external, loading, error }) =>
           </TabContainer>
           {result.belongs_to_collection ? (
             <CollectionContainer>
-              <SubTitle>Collection</SubTitle>
+              <CollectionTitle>Collection</CollectionTitle>
               <Link to={`/collection/${result.belongs_to_collection.id}`}>
                 <CollectionCover
                   src={`https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`}
@@ -261,6 +299,30 @@ const DetailPresenter = ({ result, external, loading, error }) =>
                 </CollectionName>
               </Link>
             </CollectionContainer>
+          ) : null}
+          {result.seasons ? (
+            <SeasonsContainer>
+              <SeasonsTitle>Seasons</SeasonsTitle>
+              {result.seasons && result.seasons.length > 0 && (
+                <SeasonsColumn>
+                  {result.seasons.map((tv, index) => (
+                    <>
+                      <SeasonsItem>
+                        <SeasonsCover
+                          key={index}
+                          src={
+                            tv.poster_path
+                              ? `https://image.tmdb.org/t/p/original${tv.poster_path}`
+                              : require("../../assets/noPosterSmall.png")
+                          }
+                        />
+                        <SeasonsnName>{tv.name}</SeasonsnName>
+                      </SeasonsItem>
+                    </>
+                  ))}
+                </SeasonsColumn>
+              )}
+            </SeasonsContainer>
           ) : null}
         </Data>
       </Content>
