@@ -179,12 +179,13 @@ const SectionCover = styled.img`
   border-radius: 4px;
   background-position: center center;
   &:not(:last-child) {
-    margin-right: 20px;
+    margin-right: 10px;
   }
   margin-top: 10px;
 `;
 
 const SectionName = styled.span`
+  width: 150px;
   font-size: 12px;
   margin-top: 10px;
 `;
