@@ -20,6 +20,7 @@ export const moviesApi = {
     }),
   external: (id) => api.get(`movie/${id}/external_ids`),
   collection: (id) => api.get(`collection/${id}`),
+  credits: (id) => api.get(`movie/${id}/credits`),
   search: (term) =>
     api.get("search/movie", {
       params: {
@@ -39,6 +40,7 @@ export const tvApi = {
       },
     }),
   external: (id) => api.get(`tv/${id}/external_ids`),
+  credits: (id) => api.get(`tv/${id}/credits`),
   search: (term) =>
     api.get("search/tv", {
       params: {

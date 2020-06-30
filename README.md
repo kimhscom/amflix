@@ -27,4 +27,4 @@ React and ES6 by building a Movie and TV Discovery App.
 - [x] Tabs inside of Movie / Show Details (YT Videos, Production Company & Countries)
 - [x] Collections Link
 - [x] /collections Route
-- [ ] On TV Show, show seasons and creators
+- [x] On TV Show, show seasons and creators

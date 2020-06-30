@@ -153,43 +153,43 @@ const CollectionName = styled.span`
   margin-top: 10px;
 `;
 
-const SeasonsContainer = styled.div`
+const SectionContainer = styled.div`
   margin-top: 20px;
 `;
 
-const SeasonsTitle = styled.h4`
+const SectionTitle = styled.h4`
   font-size: 22px;
 `;
 
-const SeasonsColumn = styled.div`
+const SectionColumn = styled.div`
   width: 100%;
   display: flex;
   overflow: auto;
 `;
 
-const SeasonsItem = styled.div`
+const SectiionItem = styled.div`
   display: flex;
   flex-direction: column;
 `;
 
-const SeasonsCover = styled.img`
-  width: 200px;
-  height: 300px;
+const SectionCover = styled.img`
+  width: 150px;
+  height: 225px;
   background-size: cover;
   border-radius: 4px;
   background-position: center center;
   &:not(:last-child) {
-    margin-right: 10px;
+    margin-right: 20px;
   }
   margin-top: 10px;
 `;
 
-const SeasonsnName = styled.span`
+const SectionName = styled.span`
   font-size: 12px;
   margin-top: 10px;
 `;
 
-const DetailPresenter = ({ result, external, loading, error }) =>
+const DetailPresenter = ({ result, external, credits, loading, error }) =>
   loading ? (
     <>
       <Helmet>
@@ -301,29 +301,50 @@ const DetailPresenter = ({ result, external, loading, error }) =>
             </CollectionContainer>
           ) : null}
           {result.seasons ? (
-            <SeasonsContainer>
-              <SeasonsTitle>Seasons</SeasonsTitle>
-              {result.seasons && result.seasons.length > 0 && (
-                <SeasonsColumn>
-                  {result.seasons.map((tv, index) => (
-                    <>
-                      <SeasonsItem>
-                        <SeasonsCover
-                          key={index}
+            <SectionContainer>
+              <SectionTitle>Seasons</SectionTitle>
+              <>
+                {result.seasons && result.seasons.length > 0 && (
+                  <SectionColumn>
+                    {result.seasons.map((tv) => (
+                      <SectiionItem>
+                        <SectionCover
                           src={
                             tv.poster_path
                               ? `https://image.tmdb.org/t/p/original${tv.poster_path}`
                               : require("../../assets/noPosterSmall.png")
                           }
                         />
-                        <SeasonsnName>{tv.name}</SeasonsnName>
-                      </SeasonsItem>
-                    </>
-                  ))}
-                </SeasonsColumn>
-              )}
-            </SeasonsContainer>
+                        <SectionName>{tv.name}</SectionName>
+                      </SectiionItem>
+                    ))}
+                  </SectionColumn>
+                )}
+              </>
+            </SectionContainer>
           ) : null}
+          <SectionContainer>
+            <SectionTitle>Cast</SectionTitle>
+            <>
+              {credits.cast && credits.cast.length > 0 && (
+                <SectionColumn>
+                  {credits.cast.map((people) => (
+                    <SectiionItem>
+                      <SectionCover
+                        src={
+                          people.profile_path
+                            ? `https://image.tmdb.org/t/p/original${people.profile_path}`
+                            : require("../../assets/noPosterSmall.png")
+                        }
+                      />
+                      <SectionName>Character: {people.character}</SectionName>
+                      <SectionName>Name: {people.name}</SectionName>
+                    </SectiionItem>
+                  ))}
+                </SectionColumn>
+              )}
+            </>
+          </SectionContainer>
         </Data>
       </Content>
     </Container>
@@ -332,6 +353,7 @@ const DetailPresenter = ({ result, external, loading, error }) =>
 DetailPresenter.propTypes = {
   result: PropTypes.object,
   external: PropTypes.object,
+  credits: PropTypes.object,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
 };
