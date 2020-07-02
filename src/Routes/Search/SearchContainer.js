@@ -6,6 +6,7 @@ export default class extends React.Component {
   state = {
     movieResults: null,
     tvResults: null,
+    keyword: null,
     searchTerm: "",
     error: null,
     loading: false,
@@ -38,7 +39,7 @@ export default class extends React.Component {
       const {
         data: { results: tvResults },
       } = await tvApi.search(searchTerm);
-      this.setState({ movieResults, tvResults });
+      this.setState({ movieResults, tvResults, keyword: searchTerm });
     } catch (error) {
       this.setState({
         error: "Can't find results.",
@@ -49,7 +50,14 @@ export default class extends React.Component {
   };
 
   render() {
-    const { movieResults, tvResults, searchTerm, error, loading } = this.state;
+    const {
+      movieResults,
+      tvResults,
+      searchTerm,
+      keyword,
+      error,
+      loading,
+    } = this.state;
     return (
       <SearchPresenter
         movieResults={movieResults}
@@ -57,6 +65,7 @@ export default class extends React.Component {
         loading={loading}
         error={error}
         searchTerm={searchTerm}
+        keyword={keyword}
         handleSubmit={this.handleSubmit}
         updateTerm={this.updateTerm}
       />

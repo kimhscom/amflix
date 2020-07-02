@@ -30,10 +30,16 @@ const Input = styled.input`
   width: 100%;
 `;
 
+const Title = styled.h3`
+  font-size: 28px;
+  margin-bottom: 50px;
+`;
+
 const SearchPresenter = ({
   movieResults,
   tvResults,
   searchTerm,
+  keyword,
   loading,
   error,
   handleSubmit,
@@ -55,6 +61,7 @@ const SearchPresenter = ({
       <Loader />
     ) : (
       <>
+        {tvResults && movieResults && <Title>Searching by {keyword}</Title>}
         {movieResults && movieResults.length > 0 && (
           <Section title="Movie Results">
             {movieResults.map((movie) => (
@@ -102,6 +109,7 @@ SearchPresenter.propTypes = {
   movieResults: PropTypes.array,
   tvResults: PropTypes.array,
   searchTerm: PropTypes.string,
+  keyword: PropTypes.string,
   loading: PropTypes.bool.isRequired,
   error: PropTypes.string,
   handleSubmit: PropTypes.func.isRequired,
