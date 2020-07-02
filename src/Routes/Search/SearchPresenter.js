@@ -6,14 +6,22 @@ import Loader from "Components/Loader";
 import Section from "Components/Section";
 import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
+import "../../Components/Fontawesome";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Container = styled.div`
   padding: 20px;
 `;
 
 const Form = styled.form`
+  width: 450px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.15);
+  border-radius: 25px;
+  padding: 0px 20px;
   margin-bottom: 50px;
-  width: 100%;
 `;
 
 const Input = styled.input`
@@ -41,6 +49,7 @@ const SearchPresenter = ({
         value={searchTerm}
         onChange={updateTerm}
       />
+      <FontAwesomeIcon icon="search" size="2x" />
     </Form>
     {loading ? (
       <Loader />
