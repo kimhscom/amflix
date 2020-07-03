@@ -18,9 +18,13 @@ const Image = styled.div`
 `;
 
 const Rating = styled.span`
-  bottom: 5px;
-  right: 5px;
+  width: 100%;
   position: absolute;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  bottom: 5px;
+  padding: 0px 5px;
   opacity: 0;
   transition: opacity 0.1s linear;
 `;
@@ -52,6 +56,10 @@ const Year = styled.span`
   color: rgba(255, 255, 255, 0.5);
 `;
 
+const Stars = styled.span`
+  color: #ffe228;
+`;
+
 const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
   <Link to={isMovie ? `/movie/${id}` : `/show/${id}`}>
     <Container>
@@ -64,10 +72,14 @@ const Poster = ({ id, imageUrl, title, rating, year, isMovie = false }) => (
           }
         />
         <Rating>
-          <span role="img" aria-label="rating">
-            ⭐️
-          </span>{" "}
-          {rating}/10
+          <Stars role="img" aria-label="rating">
+            {rating >= 0 && rating < 2 && "★☆☆☆☆"}
+            {rating >= 2 && rating < 5 && "★★☆☆☆"}
+            {rating >= 5 && rating < 7 && "★★★☆☆"}
+            {rating >= 7 && rating < 9 && "★★★★☆"}
+            {rating >= 9 && rating <= 10 && "★★★★★"}
+          </Stars>{" "}
+          {rating}
         </Rating>
       </ImageContainer>
       <Title>
