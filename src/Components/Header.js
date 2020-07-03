@@ -32,9 +32,6 @@ const List = styled.ul`
 const Item = styled.li`
   width: 100px;
   height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   border-bottom: 5px solid
     ${(props) => (props.current ? "#e74c3c" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
@@ -46,6 +43,9 @@ const SLink = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const TabName = styled.span`
   margin-left: 10px;
 `;
 
@@ -56,16 +56,22 @@ export default withRouter(({ location: { pathname } }) => (
     </SLink>
     <List>
       <Item current={pathname === "/"}>
-        <FontAwesomeIcon icon="film" size="2x" />
-        <SLink to="/">Movies</SLink>
+        <SLink to="/">
+          <FontAwesomeIcon icon="film" />
+          <TabName>Movies</TabName>
+        </SLink>
       </Item>
       <Item current={pathname === "/tv"}>
-        <FontAwesomeIcon icon="tv" size="2x" />
-        <SLink to="/tv">TV</SLink>
+        <SLink to="/tv">
+          <FontAwesomeIcon icon="tv" />
+          <TabName>TV</TabName>
+        </SLink>
       </Item>
       <Item current={pathname === "/search"}>
-        <FontAwesomeIcon icon="search" size="2x" />
-        <SLink to="/search">Search</SLink>
+        <SLink to="/search">
+          <FontAwesomeIcon icon="search" />
+          <TabName>Search</TabName>
+        </SLink>
       </Item>
     </List>
   </Header>
