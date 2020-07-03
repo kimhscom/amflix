@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
-import Carousel from "react-elastic-carousel";
+import Carousel from "@brainhubeu/react-carousel";
+import "@brainhubeu/react-carousel/lib/style.css";
 
 const Container = styled.div`
   :not(:last-child) {
@@ -18,17 +19,31 @@ const CarouselColumn = styled.div`
   margin-top: 20px;
 `;
 
-const breakPoints = [
-  { width: 1, itemsToShow: 1 },
-  { width: 550, itemsToShow: 5, itemsToScroll: 5 },
-  { width: 1150, itemsToShow: 10, itemsToScroll: 10 },
-];
-
 const Section = ({ title, children }) => (
   <Container>
     <Title>{title}</Title>
     <CarouselColumn>
-      <Carousel breakPoints={breakPoints} pagination={false}>
+      <Carousel
+        arrows
+        slidesPerScroll={10}
+        slidesPerPage={10}
+        breakpoints={{
+          640: {
+            slidesPerPage: 2,
+            arrows: false,
+          },
+          800: {
+            slidesPerScroll: 4,
+            slidesPerPage: 4,
+            arrows: true,
+          },
+          1200: {
+            slidesPerScroll: 5,
+            slidesPerPage: 5,
+            arrows: true,
+          },
+        }}
+      >
         {children}
       </Carousel>
     </CarouselColumn>

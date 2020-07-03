@@ -33,9 +33,6 @@ const ImageContainer = styled.div`
   width: 150px;
   margin-bottom: 5px;
   position: relative;
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
   &:hover {
     ${Image} {
       opacity: 0.3;
