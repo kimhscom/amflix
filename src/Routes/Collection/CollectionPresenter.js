@@ -4,8 +4,9 @@ import styled from "styled-components";
 import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
-import Section from "Components/Section";
 import Poster from "Components/Poster";
+import Carousel from "@brainhubeu/react-carousel";
+import "@brainhubeu/react-carousel/lib/style.css";
 
 const Container = styled.div`
   width: 100%;
@@ -45,7 +46,7 @@ const Cover = styled.div`
 
 const Data = styled.div`
   width: 70%;
-  margin-left: 10px;
+  padding: 0px 20px;
   overflow: scroll;
 `;
 
@@ -67,6 +68,7 @@ const MoviesContainer = styled.div`
 
 const SubTitle = styled.h4`
   font-size: 22px;
+  margin-bottom: 10px;
 `;
 
 const CollectionPresenter = ({ collection, loading, error }) =>
@@ -101,7 +103,7 @@ const CollectionPresenter = ({ collection, loading, error }) =>
           <MoviesContainer>
             <SubTitle>Movies</SubTitle>
             {collection.parts && collection.parts.length > 0 && (
-              <Section>
+              <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
                 {collection.parts.map((movie) => (
                   <Poster
                     key={movie.id}
@@ -115,7 +117,7 @@ const CollectionPresenter = ({ collection, loading, error }) =>
                     isMovie={true}
                   />
                 ))}
-              </Section>
+              </Carousel>
             )}
           </MoviesContainer>
         </Data>
