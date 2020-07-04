@@ -6,7 +6,9 @@ import Helmet from "react-helmet";
 import Loader from "Components/Loader";
 import Message from "Components/Message";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import Carousel from "@brainhubeu/react-carousel";
 import "react-tabs/style/react-tabs.css";
+import "@brainhubeu/react-carousel/lib/style.css";
 
 const Container = styled.div`
   width: 100%;
@@ -46,13 +48,8 @@ const Cover = styled.div`
 
 const Data = styled.div`
   width: 70%;
-  margin-left: 10px;
+  padding: 0px 20px;
   overflow: scroll;
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
 `;
 
 const Title = styled.h3`
@@ -60,16 +57,12 @@ const Title = styled.h3`
 `;
 
 const Imdb = styled.a`
-  width: 60px;
-  height: 25px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
   background-color: #f5c518;
   color: #000000;
-  font-size: 18px;
+  font-size: 32px;
   font-weight: 700;
-  border-radius: 5px;
+  padding: 0px 20px;
+  border-radius: 25px;
   margin-left: 10px;
 `;
 
@@ -79,6 +72,11 @@ const ItemContainer = styled.div`
 
 const Item = styled.span`
   font-size: 18px;
+`;
+
+const Stars = styled.span`
+  color: #ffe228;
+  margin-right: 5px;
 `;
 
 const Divider = styled.span`
@@ -98,18 +96,10 @@ const TabContainer = styled.div`
 `;
 
 const VideoContainer = styled.div`
-  display: flex;
-  overflow: auto;
-  margin-top: 10px;
+  width: 800px;
 `;
 
-const Iframe = styled.iframe`
-  width: 300px;
-  height: 169px;
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
-`;
+const Iframe = styled.iframe``;
 
 const CompanyList = styled.ul`
   line-height: 1.5;
@@ -159,12 +149,7 @@ const SectionContainer = styled.div`
 
 const SectionTitle = styled.h4`
   font-size: 22px;
-`;
-
-const SectionColumn = styled.div`
-  width: 100%;
-  display: flex;
-  overflow: auto;
+  margin-bottom: 10px;
 `;
 
 const SectiionItem = styled.div`
@@ -178,10 +163,6 @@ const SectionCover = styled.img`
   background-size: cover;
   border-radius: 4px;
   background-position: center center;
-  &:not(:last-child) {
-    margin-right: 10px;
-  }
-  margin-top: 10px;
 `;
 
 const SectionName = styled.span`
@@ -217,15 +198,17 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
           }
         />
         <Data>
-          <TitleContainer>
-            <Title>{result.title ? result.title : result.name}</Title>
-            <Imdb
-              href={`https://www.imdb.com/title/${external.imdb_id}`}
-              target="_blank"
-            >
-              IMDB
-            </Imdb>
-          </TitleContainer>
+          <Title>
+            {result.title ? result.title : result.name}
+            {
+              <Imdb
+                href={`https://www.imdb.com/title/${external.imdb_id}`}
+                target="_blank"
+              >
+                IMDB
+              </Imdb>
+            }
+          </Title>
           <ItemContainer>
             <Item>
               {result.release_date
@@ -245,6 +228,29 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
                     : `${genre.name} / `
                 )}
             </Item>
+            <Divider>•</Divider>
+            <Item>
+              {
+                <Stars role="img" aria-label="rating">
+                  {result.vote_average >= 0 &&
+                    result.vote_average < 2 &&
+                    "★☆☆☆☆"}
+                  {result.vote_average >= 2 &&
+                    result.vote_average < 5 &&
+                    "★★☆☆☆"}
+                  {result.vote_average >= 5 &&
+                    result.vote_average < 7 &&
+                    "★★★☆☆"}
+                  {result.vote_average >= 7 &&
+                    result.vote_average < 9 &&
+                    "★★★★☆"}
+                  {result.vote_average >= 9 &&
+                    result.vote_average <= 10 &&
+                    "★★★★★"}
+                </Stars>
+              }
+              {result.vote_average}
+            </Item>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
           <TabContainer>
@@ -256,16 +262,18 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
               </TabList>
               <TabPanel>
                 <VideoContainer>
-                  {result.videos.results &&
-                    result.videos.results.map((video, index) => (
-                      <Iframe
-                        key={index}
-                        width="560"
-                        height="315"
-                        src={`https://www.youtube.com/embed/${video.key}`}
-                        frameborder="0"
-                      ></Iframe>
-                    ))}
+                  <Carousel arrows slidesPerPage={1}>
+                    {result.videos.results &&
+                      result.videos.results.map((video, index) => (
+                        <Iframe
+                          key={index}
+                          width="640"
+                          height="360"
+                          src={`https://www.youtube.com/embed/${video.key}`}
+                          frameborder="0"
+                        ></Iframe>
+                      ))}
+                  </Carousel>
                 </VideoContainer>
               </TabPanel>
               <TabPanel>
@@ -293,7 +301,11 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
               <CollectionTitle>Collection</CollectionTitle>
               <Link to={`/collection/${result.belongs_to_collection.id}`}>
                 <CollectionCover
-                  src={`https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`}
+                  src={
+                    result.belongs_to_collection.poster_path
+                      ? `https://image.tmdb.org/t/p/original${result.belongs_to_collection.poster_path}`
+                      : require("../../assets/noPosterSmall.png")
+                  }
                 />
                 <CollectionName>
                   {result.belongs_to_collection.name}
@@ -306,7 +318,7 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
               <SectionTitle>Seasons</SectionTitle>
               <>
                 {result.seasons && result.seasons.length > 0 && (
-                  <SectionColumn>
+                  <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
                     {result.seasons.map((tv) => (
                       <SectiionItem>
                         <SectionCover
@@ -319,7 +331,7 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
                         <SectionName>{tv.name}</SectionName>
                       </SectiionItem>
                     ))}
-                  </SectionColumn>
+                  </Carousel>
                 )}
               </>
             </SectionContainer>
@@ -328,7 +340,7 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
             <SectionTitle>Cast</SectionTitle>
             <>
               {credits.cast && credits.cast.length > 0 && (
-                <SectionColumn>
+                <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
                   {credits.cast.map((people) => (
                     <SectiionItem>
                       <SectionCover
@@ -342,7 +354,7 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
                       <SectionName>Name: {people.name}</SectionName>
                     </SectiionItem>
                   ))}
-                </SectionColumn>
+                </Carousel>
               )}
             </>
           </SectionContainer>
