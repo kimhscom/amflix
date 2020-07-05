@@ -132,8 +132,8 @@ const CollectionPresenter = ({ collection, loading, error }) =>
             {collection.parts && collection.parts.length > 0 && (
               <Carousel
                 arrows
-                slidesPerScroll={5}
-                slidesPerPage={5}
+                slidesPerScroll={6}
+                slidesPerPage={6}
                 breakpoints={{
                   640: {
                     itemWidth: 115,
@@ -142,6 +142,10 @@ const CollectionPresenter = ({ collection, loading, error }) =>
                   900: {
                     itemWidth: 160,
                     arrows: false,
+                  },
+                  1400: {
+                    slidesPerScroll: 4,
+                    slidesPerPage: 4,
                   },
                 }}
               >

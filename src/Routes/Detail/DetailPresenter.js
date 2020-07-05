@@ -130,6 +130,9 @@ const VideoContainer = styled.div`
   @media ${device.mobile} {
     width: 280px;
   }
+  @media (min-width: 700px) and (max-width: 1100px) {
+    width: 680px;
+  }
 `;
 
 const Iframe = styled.iframe`
@@ -400,6 +403,14 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
                         itemWidth: 115,
                         arrows: false,
                       },
+                      900: {
+                        itemWidth: 160,
+                        arrows: false,
+                      },
+                      1400: {
+                        slidesPerScroll: 4,
+                        slidesPerPage: 4,
+                      },
                     }}
                   >
                     {result.seasons.map((tv) => (
@@ -431,6 +442,14 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
                     640: {
                       itemWidth: 115,
                       arrows: false,
+                    },
+                    900: {
+                      itemWidth: 160,
+                      arrows: false,
+                    },
+                    1400: {
+                      slidesPerScroll: 4,
+                      slidesPerPage: 4,
                     },
                   }}
                 >
