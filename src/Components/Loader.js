@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
+import { device } from "./Device";
 
 const Container = styled.div`
   width: 100vw;
@@ -7,13 +8,15 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 70px;
 `;
 
 const Lines = styled.div`
   width: 150px;
   display: flex;
   justify-content: space-around;
+  @media ${device.mobile} {
+    width: 75px;
+  }
 `;
 
 const lineAnimation = keyframes`
@@ -47,6 +50,10 @@ const Line = styled.div`
   }
   &:nth-child(5) {
     animation-delay: 0.4s;
+  }
+  @media ${device.mobile} {
+    width: 10px;
+    height: 40px;
   }
 `;
 

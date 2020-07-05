@@ -32,12 +32,11 @@ const Section = ({ title, children }) => (
             itemWidth: 115,
             arrows: false,
           },
-          800: {
-            slidesPerScroll: 4,
-            slidesPerPage: 4,
-            arrows: true,
+          900: {
+            itemWidth: 160,
+            arrows: false,
           },
-          1200: {
+          1300: {
             slidesPerScroll: 5,
             slidesPerPage: 5,
             arrows: true,
