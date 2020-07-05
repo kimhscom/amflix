@@ -213,11 +213,20 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
             <Item>
               {result.release_date
                 ? result.release_date.substring(0, 4)
-                : result.first_air_date.substring(0, 4)}
+                : result.first_air_date
+                ? result.first_air_date.substring(0, 4)
+                : "TBD"}
             </Item>
             <Divider>•</Divider>
             <Item>
-              {result.runtime ? result.runtime : result.episode_run_time[0]} min
+              {result.runtime && result.runtime > 0
+                ? result.runtime
+                : result.runtime === 0
+                ? "0"
+                : result.episode_run_time && result.episode_run_time > 0
+                ? result.episode_run_time[0]
+                : "0"}{" "}
+              min
             </Item>
             <Divider>•</Divider>
             <Item>
