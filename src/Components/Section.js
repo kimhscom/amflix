@@ -29,7 +29,7 @@ const Section = ({ title, children }) => (
         slidesPerPage={10}
         breakpoints={{
           640: {
-            slidesPerPage: 2,
+            itemWidth: 115,
             arrows: false,
           },
           800: {

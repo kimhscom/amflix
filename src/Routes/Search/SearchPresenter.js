@@ -8,6 +8,7 @@ import Message from "../../Components/Message";
 import Poster from "../../Components/Poster";
 import "../../Components/Fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { device } from "../../Components/Device";
 
 const Container = styled.div`
   padding: 20px;
@@ -22,17 +23,29 @@ const Form = styled.form`
   border-radius: 25px;
   padding: 0px 20px;
   margin-bottom: 50px;
+  @media ${device.mobile} {
+    width: 280px;
+    height: 40px;
+    margin-bottom: 30px;
+  }
 `;
 
 const Input = styled.input`
   all: unset;
   font-size: 28px;
   width: 100%;
+  @media ${device.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const Title = styled.h3`
   font-size: 28px;
   margin-bottom: 50px;
+  @media ${device.mobile} {
+    font-size: 22px;
+    margin-bottom: 30px;
+  }
 `;
 
 const SearchPresenter = ({

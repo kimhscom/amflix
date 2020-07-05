@@ -2,9 +2,13 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { device } from "./Device";
 
 const Container = styled.div`
   font-size: 12px;
+  @media ${device.mobile} {
+    font-size: 8px;
+  }
 `;
 
 const Image = styled.div`
@@ -15,6 +19,10 @@ const Image = styled.div`
   border-radius: 4px;
   background-position: center center;
   transition: opacity 0.1s linear;
+  @media ${device.mobile} {
+    width: 105px;
+    height: 158px;
+  }
 `;
 
 const Rating = styled.span`
@@ -40,6 +48,9 @@ const ImageContainer = styled.div`
     ${Rating} {
       opacity: 1;
     }
+  }
+  @media ${device.mobile} {
+    width: 105px;
   }
 `;
 
