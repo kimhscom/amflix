@@ -4,6 +4,7 @@ import styled from "styled-components";
 import logo from "../assets/logo.png";
 import "./Fontawesome";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { device } from "./Device";
 
 const Header = styled.header`
   color: white;
@@ -23,6 +24,10 @@ const Header = styled.header`
 const Logo = styled.img`
   width: 200px;
   height: 50px;
+  @media ${device.mobile} {
+    width: 100px;
+    height: 25px;
+  }
 `;
 
 const List = styled.ul`
@@ -35,18 +40,29 @@ const Item = styled.li`
   border-bottom: 5px solid
     ${(props) => (props.current ? "#e74c3c" : "transparent")};
   transition: border-bottom 0.5s ease-in-out;
+  @media ${device.mobile} {
+    width: 65px;
+    border-bottom: 2px solid
+      ${(props) => (props.current ? "#e74c3c" : "transparent")};
+  }
 `;
 
 const SLink = styled(Link)`
-  height: 50px;
+  height: 100%;
   font-size: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const TabName = styled.span`
   margin-left: 10px;
+  @media ${device.mobile} {
+    margin-left: 5px;
+  }
 `;
 
 export default withRouter(({ location: { pathname } }) => (
