@@ -9,12 +9,19 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import Carousel from "@brainhubeu/react-carousel";
 import "react-tabs/style/react-tabs.css";
 import "@brainhubeu/react-carousel/lib/style.css";
+import { device } from "../../Components/Device";
 
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 50px);
   position: relative;
   padding: 50px;
+  @media ${device.mobile} {
+    padding: 20px;
+  }
+  @media (min-width: 700px) and (max-width: 1100px) {
+    padding: 40px;
+  }
 `;
 
 const Backdrop = styled.div`
@@ -35,6 +42,10 @@ const Content = styled.div`
   height: 100%;
   display: flex;
   position: relative;
+  @media ${device.laptop} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Cover = styled.div`
@@ -44,16 +55,26 @@ const Cover = styled.div`
   background-position: center center;
   background-size: cover;
   border-radius: 5px;
+  @media ${device.laptop} {
+    display: none;
+  }
 `;
 
 const Data = styled.div`
   width: 70%;
   padding: 0px 20px;
   overflow: scroll;
+  @media ${device.laptop} {
+    width: 100%;
+    padding: 0px;
+  }
 `;
 
 const Title = styled.h3`
   font-size: 32px;
+  @media ${device.mobile} {
+    font-size: 22px;
+  }
 `;
 
 const Imdb = styled.a`
@@ -64,6 +85,9 @@ const Imdb = styled.a`
   padding: 0px 20px;
   border-radius: 25px;
   margin-left: 10px;
+  @media ${device.mobile} {
+    font-size: 22px;
+  }
 `;
 
 const ItemContainer = styled.div`
@@ -72,6 +96,9 @@ const ItemContainer = styled.div`
 
 const Item = styled.span`
   font-size: 18px;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const Stars = styled.span`
@@ -88,6 +115,9 @@ const Overview = styled.p`
   font-size: 18px;
   line-height: 1.5;
   opacity: 0.7;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const TabContainer = styled.div`
@@ -97,9 +127,17 @@ const TabContainer = styled.div`
 
 const VideoContainer = styled.div`
   width: 800px;
+  @media ${device.mobile} {
+    width: 280px;
+  }
 `;
 
-const Iframe = styled.iframe``;
+const Iframe = styled.iframe`
+  @media ${device.mobile} {
+    width: 240px;
+    height: 135px;
+  }
+`;
 
 const CompanyList = styled.ul`
   line-height: 1.5;
@@ -108,6 +146,9 @@ const CompanyList = styled.ul`
 
 const CompanyName = styled.li`
   font-size: 22px;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const CountryList = styled.ul`
@@ -117,6 +158,9 @@ const CountryList = styled.ul`
 
 const CountryName = styled.li`
   font-size: 22px;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const CollectionContainer = styled.div`
@@ -132,15 +176,24 @@ const CollectionCover = styled.img`
   border-radius: 4px;
   background-position: center center;
   margin-top: 10px;
+  @media ${device.mobile} {
+    width: 105px;
+  }
 `;
 
 const CollectionTitle = styled.h4`
   font-size: 22px;
+  @media ${device.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const CollectionName = styled.span`
   font-size: 12px;
   margin-top: 10px;
+  @media ${device.mobile} {
+    display: none;
+  }
 `;
 
 const SectionContainer = styled.div`
@@ -150,6 +203,9 @@ const SectionContainer = styled.div`
 const SectionTitle = styled.h4`
   font-size: 22px;
   margin-bottom: 10px;
+  @media ${device.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const SectiionItem = styled.div`
@@ -163,12 +219,20 @@ const SectionCover = styled.img`
   background-size: cover;
   border-radius: 4px;
   background-position: center center;
+  @media ${device.mobile} {
+    width: 105px;
+    height: 158px;
+  }
 `;
 
 const SectionName = styled.span`
   width: 150px;
   font-size: 12px;
   margin-top: 10px;
+  @media ${device.mobile} {
+    width: 105px;
+    font-size: 8px;
+  }
 `;
 
 const DetailPresenter = ({ result, external, credits, loading, error }) =>
@@ -327,7 +391,17 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
               <SectionTitle>Seasons</SectionTitle>
               <>
                 {result.seasons && result.seasons.length > 0 && (
-                  <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
+                  <Carousel
+                    arrows
+                    slidesPerScroll={6}
+                    slidesPerPage={6}
+                    breakpoints={{
+                      640: {
+                        itemWidth: 115,
+                        arrows: false,
+                      },
+                    }}
+                  >
                     {result.seasons.map((tv) => (
                       <SectiionItem>
                         <SectionCover
@@ -349,7 +423,17 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
             <SectionTitle>Cast</SectionTitle>
             <>
               {credits.cast && credits.cast.length > 0 && (
-                <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
+                <Carousel
+                  arrows
+                  slidesPerScroll={6}
+                  slidesPerPage={6}
+                  breakpoints={{
+                    640: {
+                      itemWidth: 115,
+                      arrows: false,
+                    },
+                  }}
+                >
                   {credits.cast.map((people) => (
                     <SectiionItem>
                       <SectionCover
