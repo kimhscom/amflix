@@ -7,12 +7,19 @@ import Message from "Components/Message";
 import Poster from "Components/Poster";
 import Carousel from "@brainhubeu/react-carousel";
 import "@brainhubeu/react-carousel/lib/style.css";
+import { device } from "../../Components/Device";
 
 const Container = styled.div`
   width: 100%;
   height: calc(100vh - 50px);
   position: relative;
   padding: 50px;
+  @media ${device.mobile} {
+    padding: 20px;
+  }
+  @media (min-width: 700px) and (max-width: 1100px) {
+    padding: 40px;
+  }
 `;
 
 const Backdrop = styled.div`
@@ -33,6 +40,10 @@ const Content = styled.div`
   height: 100%;
   display: flex;
   position: relative;
+  @media ${device.laptop} {
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 const Cover = styled.div`
@@ -42,16 +53,26 @@ const Cover = styled.div`
   background-position: center center;
   background-size: cover;
   border-radius: 5px;
+  @media ${device.laptop} {
+    display: none;
+  }
 `;
 
 const Data = styled.div`
   width: 70%;
   padding: 0px 20px;
   overflow: scroll;
+  @media ${device.laptop} {
+    width: 100%;
+    padding: 0px;
+  }
 `;
 
 const Title = styled.h3`
   font-size: 32px;
+  @media ${device.mobile} {
+    font-size: 22px;
+  }
 `;
 
 const Overview = styled.p`
@@ -60,6 +81,9 @@ const Overview = styled.p`
   line-height: 1.5;
   opacity: 0.7;
   margin-top: 20px;
+  @media ${device.mobile} {
+    font-size: 12px;
+  }
 `;
 
 const MoviesContainer = styled.div`
@@ -69,6 +93,9 @@ const MoviesContainer = styled.div`
 const SubTitle = styled.h4`
   font-size: 22px;
   margin-bottom: 10px;
+  @media ${device.mobile} {
+    font-size: 15px;
+  }
 `;
 
 const CollectionPresenter = ({ collection, loading, error }) =>
@@ -103,7 +130,21 @@ const CollectionPresenter = ({ collection, loading, error }) =>
           <MoviesContainer>
             <SubTitle>Movies</SubTitle>
             {collection.parts && collection.parts.length > 0 && (
-              <Carousel arrows slidesPerScroll={6} slidesPerPage={6}>
+              <Carousel
+                arrows
+                slidesPerScroll={5}
+                slidesPerPage={5}
+                breakpoints={{
+                  640: {
+                    itemWidth: 115,
+                    arrows: false,
+                  },
+                  900: {
+                    itemWidth: 160,
+                    arrows: false,
+                  },
+                }}
+              >
                 {collection.parts.map((movie) => (
                   <Poster
                     key={movie.id}
