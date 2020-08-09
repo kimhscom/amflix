@@ -71,13 +71,19 @@ export default withRouter(({ location: { pathname } }) => (
       <Logo src={logo} />
     </SLink>
     <List>
-      <Item current={pathname === "/"}>
+      <Item
+        current={
+          pathname === "/" ||
+          pathname.includes("/movie") ||
+          pathname.includes("/collection")
+        }
+      >
         <SLink to="/">
           <FontAwesomeIcon icon="film" />
           <TabName>Movies</TabName>
         </SLink>
       </Item>
-      <Item current={pathname === "/tv"}>
+      <Item current={pathname === "/tv" || pathname.includes("/show")}>
         <SLink to="/tv">
           <FontAwesomeIcon icon="tv" />
           <TabName>TV</TabName>
