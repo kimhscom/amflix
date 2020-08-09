@@ -329,49 +329,23 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
             </Item>
           </ItemContainer>
           <Overview>{result.overview}</Overview>
-          <TabContainer>
-            <Tabs>
-              <TabList>
-                <Tab>Videos</Tab>
-                <Tab>Companies</Tab>
-                <Tab>Countries</Tab>
-              </TabList>
-              <TabPanel>
-                <VideoContainer>
-                  <Carousel arrows slidesPerPage={1}>
-                    {result.videos.results &&
-                      result.videos.results.map((video, index) => (
-                        <Iframe
-                          key={index}
-                          width="640"
-                          height="360"
-                          src={`https://www.youtube.com/embed/${video.key}`}
-                          frameborder="0"
-                        ></Iframe>
-                      ))}
-                  </Carousel>
-                </VideoContainer>
-              </TabPanel>
-              <TabPanel>
-                <CompanyList>
-                  {result.production_companies.map((company, index) => (
-                    <CompanyName key={index}>• {company.name}</CompanyName>
+          <SectionContainer>
+            <SectionTitle>Videos</SectionTitle>
+            <VideoContainer>
+              <Carousel arrows slidesPerPage={1}>
+                {result.videos.results &&
+                  result.videos.results.map((video, index) => (
+                    <Iframe
+                      key={index}
+                      width="640"
+                      height="360"
+                      src={`https://www.youtube.com/embed/${video.key}`}
+                      frameborder="0"
+                    ></Iframe>
                   ))}
-                </CompanyList>
-              </TabPanel>
-              <TabPanel>
-                <CountryList>
-                  {result.production_countries
-                    ? result.production_countries.map((country, index) => (
-                        <CountryName key={index}>• {country.name}</CountryName>
-                      ))
-                    : result.origin_country.map((country, index) => (
-                        <CountryName key={index}>• {country}</CountryName>
-                      ))}
-                </CountryList>
-              </TabPanel>
-            </Tabs>
-          </TabContainer>
+              </Carousel>
+            </VideoContainer>
+          </SectionContainer>
           {result.belongs_to_collection ? (
             <CollectionContainer>
               <CollectionTitle>Collection</CollectionTitle>
@@ -470,6 +444,32 @@ const DetailPresenter = ({ result, external, credits, loading, error }) =>
               )}
             </>
           </SectionContainer>
+          <TabContainer>
+            <Tabs>
+              <TabList>
+                <Tab>Companies</Tab>
+                <Tab>Countries</Tab>
+              </TabList>
+              <TabPanel>
+                <CompanyList>
+                  {result.production_companies.map((company, index) => (
+                    <CompanyName key={index}>• {company.name}</CompanyName>
+                  ))}
+                </CompanyList>
+              </TabPanel>
+              <TabPanel>
+                <CountryList>
+                  {result.production_countries
+                    ? result.production_countries.map((country, index) => (
+                        <CountryName key={index}>• {country.name}</CountryName>
+                      ))
+                    : result.origin_country.map((country, index) => (
+                        <CountryName key={index}>• {country}</CountryName>
+                      ))}
+                </CountryList>
+              </TabPanel>
+            </Tabs>
+          </TabContainer>
         </Data>
       </Content>
     </Container>
